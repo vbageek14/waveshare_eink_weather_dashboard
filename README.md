@@ -2,12 +2,10 @@
 
 # E-paper Weather Display
 
-This project uses a Raspberry Pi to show weather updates and trash reminders on a Waveshare 7.5-inch e-paper display. It fetches weather data from OpenWeatherMap and refreshes the display at set intervals. Minimal energy consumption makes this setup ideal for continuous display without frequent updates.
+This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7.5-inch e-paper display. It fetches weather data from OpenWeatherMap and refreshes the display at set intervals. Minimal energy consumption makes this setup ideal for continuous display without frequent updates.
 
 ![Display Photo 1](https://github.com/AbnormalDistributions/e_paper_weather_display/blob/master/photos/photo1.jpg?raw=true)
 ![Display Photo 2](https://raw.githubusercontent.com/AbnormalDistributions/e_paper_weather_display/refs/heads/master/photos/photo2.jpg)
-
-If you find this project useful, consider [buying me a coffee ☕️](https://ko-fi.com/abnormaldistributions).
 
 ---
 
@@ -106,7 +104,7 @@ Then, add the following line at the end of the file:
 - Double-check any custom paths used in `crontab` if the automatic updates aren’t working as expected.
 
 ## Credit and License
-- Icon designs by [Erik Flowers](https://erikflowers.github.io/weather-icons/), with some modifications.
+- This project is based on the original work by [James Steele Howard](https://github.com/AbnormalDistributions). Icon designs by [Erik Flowers](https://erikflowers.github.io/weather-icons/), with some modifications, and additional icons from [Flaticon] (https://www.flaticon.com/free-icons/).
 - **Weather Icons**: Licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).
 - **Code**: Licensed under [MIT License](http://opensource.org/licenses/mit-license.html).
 - **Documentation**: Licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0).

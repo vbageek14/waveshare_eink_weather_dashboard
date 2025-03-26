@@ -23,7 +23,7 @@ This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7
 
 ## What’s New (Version 3.0)
 - **Added 7-day forecast at the bottom of display**: The forecast shows high and low temperature for that day as well as precipitation probability and weather icon.
-- **Added 8-hour forceast on the right side of display**: The forcast shows time, temperature and weather icon.
+- **Added 8-hour forecast on the right side of display**: The forcast shows time, temperature and weather icon.
 - **Added date and time in the top right corner**:
 - **Added UV index, sunrise and sunset times and corresponding icons**
 - **Replaced text with new icons for precipation, wind speed and humidity**

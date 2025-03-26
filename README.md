@@ -4,8 +4,8 @@
 
 This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7.5-inch e-paper display. It fetches weather data from OpenWeatherMap and refreshes the display at set intervals. Minimal energy consumption makes this setup ideal for continuous display without frequent updates.
 
-![Display Photo 1](https://github.com/AbnormalDistributions/e_paper_weather_display/blob/master/photos/photo1.jpg?raw=true)
-![Display Photo 2](https://raw.githubusercontent.com/AbnormalDistributions/e_paper_weather_display/refs/heads/master/photos/photo2.jpg)
+![Display Photo 1](https://github.com/vbageek14/waveshare_eink_weather_dashboard/blob/master/pictures/RaspberryPi_ePaper_Weather_Display_Front.jpeg)
+![Display Photo 2](https://github.com/vbageek14/waveshare_eink_weather_dashboard/blob/master/pictures/RaspberryPi_ePaper_Weather_Display_Back.jpeg)
 
 ---
 
@@ -21,23 +21,20 @@ This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7
 - [Troubleshooting](#troubleshooting)
 - [Credit and License](#credit-and-license)
 
-## What’s New (Version 2.0)
-- **Upgraded to OpenWeatherMap One Call API 3.0**: This update now uses the latest version of the OpenWeatherMap API (3.0), which may require users to update their subscriptions if they were previously using version 2.5. See the [OpenWeatherMap One Call Migration Guide](https://openweathermap.org/one-call-transfer) for details on the API changes and subscription requirements.
-- **Automatic Log Management**: Logs now rotate when they get too large, making maintenance easier.
-- **User-Friendly Settings**: All essential settings are grouped together for quick customization.
-- **More Reliable Error Handling**: Logs network and API errors for easier troubleshooting.
-- **Improved Directory Handling**: The script finds the right directories automatically, without manual path adjustments.
-- **Trash Day Reminders**: Customize specific days to get reminders on the display.
+## What’s New (Version 3.0)
+- **Added 7-day forecast at the bottom of display**: The forecast shows high and low temperature for that day as well as precipitation probability and weather icon.
+- **Added 8-hour forceast on the right side of display**: The forcast shows time, temperature and weather icon.
+- **Added date and time in the top right corner**:
+- **Added UV index, sunrise and sunset times and corresponding icons**
+- **Replaced text with new icons for precipation, wind speed and humidity**
+- **Removed trash day reminders functionality**
 
 ### Parts List
-- **Waveshare 7.5-inch e-Paper HAT**: [Available on Amazon](https://amzn.to/3UBxuah) (affiliate link).  
-- **Raspberry Pi** (tested on a Pi 3; any model should work except the Pi Zero without soldered headers).
+- **Waveshare 7.5-inch e-Paper HAT**: [Purchased on Amazon](https://a.co/d/cKgyf4m). 
+- **Raspberry Pi** (set up on a Pi 4 2GB RAM; any model should work except the Pi Zero without soldered headers).
 - **SD card** (at least 8 GB).
 - **Power supply** for the Raspberry Pi.
-- **5 x 7 inch photo frame** (thrift store find recommended).
-
-> **Note**: If you use this affiliate link, it helps support this project at no additional cost to you. Thank you!
-
+- **5 x 7 inch photo frame**: The one in the image was purchased at Wal-Mart.
 
 ## Setup Instructions
 
@@ -45,10 +42,10 @@ This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7
 1. **Clone the Project**:
    Open a terminal and run:
    ```bash
-   git clone https://github.com/AbnormalDistributions/e_paper_weather_display.git
-   cd e_paper_weather_display
+   git clone https://github.com/vbageek14/waveshare_eink_weather_dashboard.git
+   cd waveshare_eink_weather_dashboard
    ```
-
+   
 2. **Install Python Libraries**:
    ```bash
    pip install pillow requests
@@ -63,10 +60,9 @@ This project uses a Raspberry Pi to display a weather dashboard on a Waveshare 7
    - `API_KEY`: Your OpenWeatherMap API key.
    - `LOCATION`: Name of the location to display (e.g., `New Orleans`).
    - `LATITUDE` and `LONGITUDE`: Coordinates for weather updates (use [Google Maps](https://maps.google.com) to find these).
-   - `UNITS`: Choose `'imperial'` (Fahrenheit) or `'metric'` (Celsius).
+   - `UNITS`: Choose `'imperial'` (Fahrenheit) or `'metric'` (Celsius). If you select 'imperial', make sure to update °C to °F in the code and MPH to M/S.
    - `CSV_OPTION`: Set this to `True` if you’d like to save a daily log of weather data in `records.csv`.
-   - `TRASH_DAYS`: Add the days for trash reminders as numbers (0=Monday, 6=Sunday).
-
+   - 
 > **Note**: If you are not using a 7.5 inch Version 2 display, you will want to replace 'epd7in5_V2.py' in the 'lib' folder with the appropriate version from [Waveshare's e-Paper library](https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python/lib/waveshare_epd). Adjustments will be required for other screen sizes.
 
 ## Running the Script
@@ -86,16 +82,22 @@ crontab -e
 ```
 Then, add the following line at the end of the file:
 ```bash
-*/15 * * * * /usr/bin/python /home/pi/e_paper_weather_display/weather.py >> /home/pi/e_paper_weather_display/weather_display.log 2>&1
+*/15 * * * * /usr/bin/python /home/pi/waveshare_eink_weather_dashboard/weather.py >> /home/pi/waveshare_eink_weather_dashboard/weather_display.log 2>&1
 ```
 - This command updates the display every 15 minutes.
 - Be sure to replace `/home/pi/e_paper_weather_display/` with the path where the project is stored, if different.
+
+If you would like to set restrictions for when to run the update, you can do the following:
+```bash
+*/15 6-23 * * * /usr/bin/python /home/pi/waveshare_eink_weather_dashboard/weather.py >> /home/pi/waveshare_eink_weather_dashboard/weather_display.log 2>&1
+```
+- This command stops the updates from 12am until 7am.
 
 ## Files in This Repository
 - **weather.py**: Main script file that fetches weather data and updates the display.
 - **lib/**: Contains display drivers for the Waveshare e-paper display.
 - **font/** and **pic/**: Folders with fonts and images used by the display.
-- **photos/**: Sample images of the display in action.
+- **pictures/**: Sample images of the display in action.
 - **records.csv**: Optional log file for weather data if `CSV_OPTION` is enabled.
 
 ## Troubleshooting
@@ -104,7 +106,7 @@ Then, add the following line at the end of the file:
 - Double-check any custom paths used in `crontab` if the automatic updates aren’t working as expected.
 
 ## Credit and License
-- This project is based on the original work by [James Steele Howard](https://github.com/AbnormalDistributions). Icon designs by [Erik Flowers](https://erikflowers.github.io/weather-icons/), with some modifications, and additional icons from [Flaticon] (https://www.flaticon.com/free-icons/).
+- This project is based on the original work by [James Steele Howard](https://github.com/AbnormalDistributions). Icon designs by [Erik Flowers](https://erikflowers.github.io/weather-icons/), with some modifications, and additional icons from [Flaticon](https://www.flaticon.com/free-icons/).
 - **Weather Icons**: Licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).
 - **Code**: Licensed under [MIT License](http://opensource.org/licenses/mit-license.html).
 - **Documentation**: Licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0).
